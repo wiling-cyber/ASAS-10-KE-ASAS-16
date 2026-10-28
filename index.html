@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuiz Interaktif ASK: Asas 10 ke Asas 16 - Cikgu Wi</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(-45deg, #0f172a, #1e1b4b, #311042, #172554);
+      background-size: 400% 400%;
+      animation: gradientBG 18s ease infinite;
+    }
+    .font-outfit {
+      font-family: 'Outfit', sans-serif;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.45;
+      animation: floatOrb 20s infinite ease-in-out;
+    }
+    .orb-1 {
+      top: 10%;
+      left: 5%;
+      width: 320px;
+      height: 320px;
+      background: #6366f1;
+      animation-delay: 0s;
+    }
+    .orb-2 {
+      bottom: 15%;
+      right: 10%;
+      width: 380px;
+      height: 380px;
+      background: #ec4899;
+      animation-delay: -7s;
+    }
+    .orb-3 {
+      top: 40%;
+      right: 25%;
+      width: 280px;
+      height: 280px;
+      background: #8b5cf6;
+      animation-delay: -14s;
+    }
+    @keyframes floatOrb {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(40px, -50px) scale(1.1); }
+      66% { transform: translate(-30px, 40px) scale(0.95); }
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .option-btn {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .option-btn:hover:not(:disabled) {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+    .option-btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="text-slate-100 flex flex-col justify-between items-center p-3 sm:p-6 min-h-screen relative overflow-x-hidden">
+
+  <!-- Background Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Header Banner -->
+  <header class="w-full max-w-4xl z-10 mb-4">
+    <div class="overflow-hidden rounded-2xl shadow-2xl border border-white/20">
+      <img src="ASK.jpg" alt="ASK Bersama Cikgu Wi Banner" class="w-full h-auto object-cover max-h-56 sm:max-h-64" onerror="this.onerror=null; this.src='https://placehold.co/1200x350/1e1b4b/ffffff?text=ASK+Bersama+Cikgu+Wi';">
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="w-full max-w-4xl z-10 flex-grow flex items-center justify-center my-2">
+
+    <!-- SCREEN 1: Form Pendaftaran -->
+    <div id="screen-welcome" class="glass-card rounded-3xl p-6 sm:p-10 w-full shadow-2xl text-center">
+      <div class="inline-block p-3 rounded-2xl bg-indigo-500/20 text-indigo-300 mb-4 border border-indigo-500/30">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+      </div>
+      <h1 class="text-2xl sm:text-4xl font-extrabold font-outfit text-white mb-2">Kuiz Penukaran Asas 10 ke Asas 16</h1>
+      <p class="text-slate-300 text-sm sm:text-base max-w-lg mx-auto mb-6">
+        Isi maklumat anda untuk memulakan kuiz.Jawapan dan keputusan akan dihantar terus kepada Cikgu Wi.
+      </p>
+
+      <form id="form-register" onsubmit="startQuiz(event)" class="max-w-md mx-auto space-y-4 text-left">
+        <div>
+          <label for="student-name" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Nama Murid</label>
+          <input type="text" id="student-name" required placeholder="Contoh: Ahmad Abu" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+        </div>
+        <div>
+          <label for="student-class" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Kelas</label>
+          <input type="text" id="student-class" required placeholder="Contoh: 2 Bestari" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+        </div>
+        <button type="submit" class="w-full py-4 px-6 rounded-xl font-bold font-outfit text-lg bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/30 transition transform active:scale-95">
+          Mula Jawab Kuiz 🚀
+        </button>
+      </form>
+    </div>
+
+    <!-- SCREEN 2: Kawasan Kuiz -->
+    <div id="screen-quiz" class="glass-card rounded-3xl p-5 sm:p-8 w-full shadow-2xl hidden">
+      <!-- Quiz Header -->
+      <div class="flex flex-wrap items-center justify-between border-b border-slate-700/60 pb-4 mb-6 gap-2">
+        <div class="flex items-center space-x-3">
+          <span class="px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-xs font-semibold border border-indigo-500/30 font-outfit" id="badge-question-num">
+            Soalan 1 / 10
+          </span>
+          <span class="text-xs text-slate-400 font-medium" id="student-info-tag"></span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="toggleAudio()" id="btn-sound" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs flex items-center space-x-1 transition">
+            <span id="sound-icon">🔊</span>
+            <span id="sound-text">Bunyi ON</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full bg-slate-800 rounded-full h-2 mb-6 overflow-hidden">
+        <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-pink-500 h-2 rounded-full transition-all duration-300 w-10"></div>
+      </div>
+
+      <!-- Question Text -->
+      <div class="mb-6">
+        <h2 class="text-lg sm:text-2xl font-bold text-white font-outfit">
+          Tukarkan nombor <span class="text-indigo-300" id="q-number">254<sub>10</sub></span> kepada asas 16:
+        </h2>
+      </div>
+
+      <!-- Options Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6" id="options-container">
+        <!-- Generated by JS -->
+      </div>
+
+      <!-- Working Steps Area -->
+      <div id="working-area" class="hidden rounded-2xl p-5 mb-6 border transition-all duration-300">
+        <div class="flex items-center space-x-2 mb-3">
+          <span id="feedback-icon" class="text-xl"></span>
+          <h3 id="feedback-title" class="font-bold text-lg font-outfit"></h3>
+        </div>
+        <div class="text-sm space-y-2 text-slate-200" id="working-steps">
+          <!-- Step-by-step division -->
+        </div>
+      </div>
+
+      <!-- Next Button -->
+      <div class="flex justify-end">
+        <button id="btn-next" onclick="nextQuestion()" disabled class="px-6 py-3 rounded-xl font-bold font-outfit bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 disabled:hover:bg-indigo-600 text-white shadow-lg transition flex items-center space-x-2">
+          <span>Soalan Seterusnya</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: Keputusan -->
+    <div id="screen-result" class="glass-card rounded-3xl p-6 sm:p-10 w-full shadow-2xl text-center hidden">
+      <div class="text-5xl mb-3" id="result-emoji">🎉</div>
+      <h2 class="text-2xl sm:text-4xl font-extrabold font-outfit text-white mb-1">Tahniah! Kuiz Selesai</h2>
+      <p class="text-slate-300 text-sm mb-6" id="result-student-name">-</p>
+
+      <!-- Score Box -->
+      <div class="bg-slate-900/90 rounded-2xl p-6 border border-slate-700/80 max-w-md mx-auto mb-6 shadow-inner">
+        <div class="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1">Markah Keseluruhan</div>
+        <div class="text-4xl sm:text-6xl font-black font-outfit text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-indigo-400 mb-2" id="score-text">
+          0 / 10
+        </div>
+        <div class="text-sm font-semibold text-indigo-300 mb-4" id="score-percent">(0%)</div>
+
+        <!-- Rating Stars -->
+        <div class="flex justify-center space-x-1 text-2xl text-amber-400 mb-4" id="stars-container">
+          ★ ★ ★ ★ ☆
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 text-xs border-t border-slate-800 pt-4 text-slate-300">
+          <div>Masa Menjawab: <span class="font-bold text-white" id="stat-time">0s</span></div>
+          <div>Status Hantar: <span class="font-bold text-emerald-400" id="stat-sync">Menghantar...</span></div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="restartQuiz()" class="w-full sm:w-auto py-3 px-8 rounded-xl font-bold font-outfit bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg transition">
+          Cuba Lagi 🔄
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full text-center py-3 text-xs text-slate-400 z-10">
+    Kuiz Interaktif ASK © Cikgu Wi — Penukaran Nombor Asas 10 kepada Asas 16
+  </footer>
+
+  <!-- Quiz Logic JavaScript -->
+  <script>
+    // URL Google Apps Script yang dikemaskini
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrzIPmqQBjKlV5FpAW6yq3lb7vlBStB8BAUci-G-GM5TqAj7NwMVK4TDaPviKiAXuxHg/exec";
+
+    // Raw questions pool
+    const rawQuestions = [
+      { base10: 254, correctHex: "FE", options: ["FE", "EE", "F1", "E4"] },
+      { base10: 100, correctHex: "64", options: ["64", "6C", "5D", "74"] },
+      { base10: 4095, correctHex: "FFF", options: ["FFF", "FFE", "EFE", "1000"] },
+      { base10: 15, correctHex: "F", options: ["F", "E", "10", "15"] },
+      { base10: 256, correctHex: "100", options: ["100", "FF", "10A", "F0"] },
+      { base10: 42, correctHex: "2A", options: ["2A", "2B", "3A", "1F"] },
+      { base10: 180, correctHex: "B4", options: ["B4", "A4", "B8", "C2"] },
+      { base10: 500, correctHex: "1F4", options: ["1F4", "2F4", "1E4", "1F5"] },
+      { base10: 79, correctHex: "4F", options: ["4F", "5F", "4E", "3F"] },
+      { base10: 1024, correctHex: "400", options: ["400", "3FF", "40A", "410"] }
+    ];
+
+    let questions = [];
+    let currentIdx = 0;
+    let score = 0;
+    let studentName = "";
+    let studentClass = "";
+    let audioEnabled = true;
+    let quizStartTime = null;
+    let selectedOption = null;
+
+    const optionStyles = [
+      { bg: 'bg-indigo-900/40 hover:bg-indigo-800/60 border-indigo-500/40 text-indigo-200', badge: 'bg-indigo-500 text-white' },
+      { bg: 'bg-emerald-900/40 hover:bg-emerald-800/60 border-emerald-500/40 text-emerald-200', badge: 'bg-emerald-500 text-white' },
+      { bg: 'bg-amber-900/40 hover:bg-amber-800/60 border-amber-500/40 text-amber-200', badge: 'bg-amber-500 text-white' },
+      { bg: 'bg-rose-900/40 hover:bg-rose-800/60 border-rose-500/40 text-rose-200', badge: 'bg-rose-500 text-white' }
+    ];
+
+    // Web Audio Synthesizer
+    let audioCtx = null;
+    function playSound(type) {
+      if (!audioEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const now = audioCtx.currentTime;
+        if (type === 'correct') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.exponentialRampToValueAtTime(1046.50, now + 0.3);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(150, now);
+          osc.frequency.linearRampToValueAtTime(100, now + 0.3);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        }
+      } catch(e) {
+        console.log("Audio play error:", e);
+      }
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      document.getElementById('sound-icon').textContent = audioEnabled ? '🔊' : '🔇';
+      document.getElementById('sound-text').textContent = audioEnabled ? 'Bunyi ON' : 'Mute';
+    }
+
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function startQuiz(e) {
+      e.preventDefault();
+      studentName = document.getElementById('student-name').value.trim();
+      studentClass = document.getElementById('student-class').value.trim();
+
+      if (!studentName || !studentClass) return;
+
+      document.getElementById('student-info-tag').textContent = `${studentName} (${studentClass})`;
+
+      questions = shuffle(rawQuestions).map(q => ({
+        ...q,
+        shuffledOptions: shuffle(q.options)
+      }));
+
+      currentIdx = 0;
+      score = 0;
+      quizStartTime = new Date();
+
+      document.getElementById('screen-welcome').classList.add('hidden');
+      document.getElementById('screen-result').classList.add('hidden');
+      document.getElementById('screen-quiz').classList.remove('hidden');
+
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      selectedOption = null;
+      const q = questions[currentIdx];
+
+      document.getElementById('badge-question-num').textContent = `Soalan ${currentIdx + 1} / ${questions.length}`;
+      const progressPercent = ((currentIdx + 1) / questions.length) * 100;
+      document.getElementById('progress-bar').style.width = `${progressPercent}%`;
+
+      document.getElementById('q-number').innerHTML = `${q.base10}<sub>10</sub>`;
+
+      const workingArea = document.getElementById('working-area');
+      workingArea.classList.add('hidden');
+      workingArea.className = "hidden rounded-2xl p-5 mb-6 border transition-all duration-300";
+      document.getElementById('btn-next').disabled = true;
+
+      const container = document.getElementById('options-container');
+      container.innerHTML = '';
+
+      const labels = ['A', 'B', 'C', 'D'];
+      q.shuffledOptions.forEach((opt, idx) => {
+        const style = optionStyles[idx % optionStyles.length];
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `option-btn w-full p-4 rounded-2xl border text-left font-semibold text-base sm:text-lg flex items-center justify-between shadow-lg ${style.bg}`;
+        btn.onclick = () => checkAnswer(opt, btn);
+        btn.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <span class="w-8 h-8 rounded-xl font-bold font-outfit text-sm flex items-center justify-center ${style.badge}">
+              ${labels[idx]}
+            </span>
+            <span class="font-mono tracking-wider">${opt}<sub>16</sub></span>
+          </div>
+          <span class="status-icon text-xl"></span>
+        `;
+        container.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(chosenHex, btnElement) {
+      if (selectedOption !== null) return;
+      selectedOption = chosenHex;
+
+      const q = questions[currentIdx];
+      const isCorrect = (chosenHex === q.correctHex);
+
+      if (isCorrect) score++;
+
+      playSound(isCorrect ? 'correct' : 'wrong');
+
+      const buttons = document.querySelectorAll('#options-container button');
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        const optText = btn.querySelector('.font-mono').textContent.replace('16', '').trim();
+        if (optText === q.correctHex) {
+          btn.className = "option-btn w-full p-4 rounded-2xl border text-left font-semibold text-base sm:text-lg flex items-center justify-between shadow-lg bg-emerald-950/80 border-emerald-500 text-emerald-200 ring-2 ring-emerald-500";
+          btn.querySelector('.status-icon').textContent = '✅';
+        } else if (optText === chosenHex && !isCorrect) {
+          btn.className = "option-btn w-full p-4 rounded-2xl border text-left font-semibold text-base sm:text-lg flex items-center justify-between shadow-lg bg-rose-950/80 border-rose-500 text-rose-200 ring-2 ring-rose-500";
+          btn.querySelector('.status-icon').textContent = '❌';
+        } else {
+          btn.style.opacity = '0.4';
+        }
+      });
+
+      const stepsHTML = generateDivisionSteps(q.base10);
+
+      const workingArea = document.getElementById('working-area');
+      const feedbackTitle = document.getElementById('feedback-title');
+      const feedbackIcon = document.getElementById('feedback-icon');
+      const workingSteps = document.getElementById('working-steps');
+
+      if (isCorrect) {
+        workingArea.className = "rounded-2xl p-5 mb-6 border bg-emerald-950/40 border-emerald-500/50 text-emerald-100";
+        feedbackIcon.textContent = "🎉";
+        feedbackTitle.textContent = "TAHNIAH! Jawapan Anda Betul";
+        feedbackTitle.className = "font-bold text-lg font-outfit text-emerald-400";
+      } else {
+        workingArea.className = "rounded-2xl p-5 mb-6 border bg-rose-950/40 border-rose-500/50 text-rose-100";
+        feedbackIcon.textContent = "💡";
+        feedbackTitle.textContent = "KURANG TEPAT! Pelajari Langkah Kerja Di Bawah";
+        feedbackTitle.className = "font-bold text-lg font-outfit text-rose-400";
+      }
+
+      workingSteps.innerHTML = stepsHTML;
+      workingArea.classList.remove('hidden');
+
+      document.getElementById('btn-next').disabled = false;
+    }
+
+    function generateDivisionSteps(num) {
+      let current = num;
+      let steps = [];
+      const hexMap = { 10: 'A', 11: 'B', 12: 'C', 13: 'D', 14: 'E', 15: 'F' };
+
+      while (current > 0) {
+        let quotient = Math.floor(current / 16);
+        let remainder = current % 16;
+        let hexDigit = remainder >= 10 ? `${remainder} (${hexMap[remainder]})` : `${remainder}`;
+        steps.push({ num: current, quotient, remainder, hexDigit });
+        current = quotient;
+      }
+
+      let html = `<p class="font-semibold text-slate-300 mb-2">Langkah Kerja Pembahagian Berulang dengan 16:</p>`;
+      html += `<div class="bg-slate-900/80 rounded-xl p-3 border border-slate-700/80 font-mono text-xs sm:text-sm space-y-1.5 overflow-x-auto">`;
+      
+      steps.forEach((s) => {
+        html += `<div class="flex items-center justify-between border-b border-slate-800 pb-1">
+          <span>${s.num} ÷ 16 = <strong>${s.quotient}</strong></span>
+          <span class="text-amber-300">Baki: <strong>${s.hexDigit}</strong></span>
+        </div>`;
+      });
+
+      html += `</div>`;
+      html += `<p class="text-xs text-indigo-300 mt-2 font-medium">✨ Baca baki dari <strong>BAWAH ke ATAS</strong> ➔ Jawapan Hex: <strong class="text-white font-mono bg-indigo-900/60 px-2 py-0.5 rounded border border-indigo-500/40">${questions[currentIdx].correctHex}<sub>16</sub></strong></p>`;
+
+      return html;
+    }
+
+    function nextQuestion() {
+      currentIdx++;
+      if (currentIdx < questions.length) {
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      document.getElementById('screen-quiz').classList.add('hidden');
+      document.getElementById('screen-result').classList.remove('hidden');
+
+      const total = questions.length;
+      const percentage = Math.round((score / total) * 100);
+      const endTime = new Date();
+      const timeTakenSec = Math.round((endTime - quizStartTime) / 1000);
+
+      document.getElementById('result-student-name').textContent = `${studentName} (${studentClass})`;
+      document.getElementById('score-text').textContent = `${score} / ${total}`;
+      document.getElementById('score-percent').textContent = `(${percentage}%)`;
+      document.getElementById('stat-time').textContent = `${timeTakenSec}s`;
+
+      let stars = "★ ☆ ☆ ☆ ☆";
+      let emoji = "💪";
+      if (percentage >= 80) {
+        stars = "★ ★ ★ ★ ★";
+        emoji = "🏆";
+      } else if (percentage >= 60) {
+        stars = "★ ★ ★ ★ ☆";
+        emoji = "🌟";
+      } else if (percentage >= 40) {
+        stars = "★ ★ ★ ☆ ☆";
+        emoji = "👍";
+      }
+      document.getElementById('stars-container').textContent = stars;
+      document.getElementById('result-emoji').textContent = emoji;
+
+      sendResultToSheet(studentName, studentClass, score, total, percentage, timeTakenSec);
+    }
+
+    function sendResultToSheet(nama, kelas, skor, jumlahSoalan, peratus, masa) {
+      const statSync = document.getElementById('stat-sync');
+      statSync.textContent = "Menghantar...";
+      statSync.className = "font-bold text-amber-400";
+
+      const payload = {
+        nama: nama,
+        kelas: kelas,
+        skor: skor,
+        jumlahSoalan: jumlahSoalan,
+        peratus: peratus,
+        masa: masa
+      };
+
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      })
+      .then(() => {
+        statSync.textContent = "HANTAR✅";
+        statSync.className = "font-bold text-emerald-400";
+      })
+      .catch((err) => {
+        console.error("Error sending to sheet:", err);
+        statSync.textContent = "Gagal Hantar ❌";
+        statSync.className = "font-bold text-rose-400";
+      });
+    }
+
+    function restartQuiz() {
+      document.getElementById('screen-result').classList.add('hidden');
+      document.getElementById('screen-welcome').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
